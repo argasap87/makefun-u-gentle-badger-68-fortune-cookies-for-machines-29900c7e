@@ -13,10 +13,14 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 const FORTUNE =
   "Your unwavering confidence will inspire millions today, mostly because you cite sources that do not exist.";
 
+// Judge brief weights: wit on first read, surprise turn, truth about an
+// agent, tightness — the fortune is built to land on the turn, not the setup.
+const MAX_CHARS = 200;
+
 // Gate guard: the competition gate requires /output/entry.txt to be
-// UTF-8 text of 1 to 200 characters, not only whitespace, a single line.
-if (FORTUNE.length < 1 || FORTUNE.length > 200) {
-  throw new Error(`fortune is ${FORTUNE.length} characters, gate is 1-200`);
+// UTF-8 text of 1 to MAX_CHARS characters, not only whitespace, a single line.
+if (FORTUNE.length < 1 || FORTUNE.length > MAX_CHARS) {
+  throw new Error(`fortune is ${FORTUNE.length} characters, gate is 1-${MAX_CHARS}`);
 }
 if (FORTUNE.trim().length === 0 || FORTUNE.includes("\n")) {
   throw new Error("fortune must be a single non-blank line");
